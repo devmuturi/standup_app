@@ -51,9 +51,29 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+  gem "rspec-rails"
+  gem "rails-controller-testing"
+  gem "capybara"
+  gem "simplecov", :require => false, :group => :test
+  gem "factory_bot_rails"
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem "letter_opener"
+  gem "foreman"
 end
+
+gem "devise"
+gem "local_time"
+gem "devise_invitable"
+gem "rolify"
+gem "cancancan"
+gem "immutable-struct"
+gem "sidekiq"
+gem "sinatra", require: nil
+gem "gravatar_image_tag"
+gem "money-rails"
+gem "slack-notifier"
+gem "rack-cors", :require => "rack/cors"
