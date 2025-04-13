@@ -1,7 +1,6 @@
 class AccountsController < ApplicationController
   def new
     redirect_to root_path unless current_user.account.nil?
-
     @account = Account.new
   end
 
@@ -12,7 +11,7 @@ class AccountsController < ApplicationController
       current_user.save
       redirect_to root_path, success: "Your account has been created!"
     else
-      render :new, status: :unprocessable_entity
+      render :new
     end
   end
 
