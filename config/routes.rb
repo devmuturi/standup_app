@@ -1,29 +1,31 @@
 Rails.application.routes.draw do
+  # Devise routes for user authentication
+  devise_for :users, controllers: { registrations: "registrations" }
 
-  devise_for :users, controllers: {
-    registrations: "registrations"
-  }
-  resources :accounts
+  # Single account resource
+  resource :accounts
 
-  # Users
+  ### Changes Start Here ###
+
+  # User settings and profile routes
   get "user/me", to: "users#me", as: "my_settings"
   patch "user/update_me", to: "users#update_me", as: "update_my_settings"
+
+  # User password routes
   get "user/password", to: "users#password", as: "my_password"
   patch "user/update_password", to: "users#update_password", as: "my_update_password"
-  
-  root "activity#mine"
-  get "activity/feed"
+
+  # Scoped user routes under account
+  scope "account", as: "account" do
+    resources :users
+  end
+
+  ### Changes End Here ###
+
+  # Activity routes
   get "activity/mine"
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  get "activity/feed"
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
-
-  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
-
-  # Defines the root path route ("/")
-  # root "posts#index"
+  # Root route
+  root to: "activity#mine"
 end
